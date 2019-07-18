@@ -4,7 +4,7 @@ namespace conway_backend
 {
     public class Board
     {
-        private static sbyte[,] Directions =
+        public static readonly sbyte[,] Directions =
         {
             {-1, -1},
             {-1,  0},
