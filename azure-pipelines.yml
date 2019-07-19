@@ -1,5 +1,4 @@
 # ASP.NET Core
-
 # Build and test ASP.NET Core projects targeting .NET Core.
 # Add steps that run tests, create a NuGet package, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
@@ -14,16 +13,17 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
+- script: dotnet add package PasionaAnalyzer --version 1.0.0
+  displayName: 'dotnet add package PasionaAnalyzer'
 - script: dotnet restore
+  displayName: 'dotnet restore'
 - script: dotnet build --configuration $(buildConfiguration)
   displayName: 'dotnet build $(buildConfiguration)'
-  
-- task: PowerShell@2
+
+- task: mspremier.BuildQualityChecks.QualityChecks-task.BuildQualityChecks@5
+  displayName: 'Check build quality'
   inputs:
-    targetType: 'inline'
-    script: |
-      Write-Host "Hello World"
-      
-      Write-Host "##vso[task.logissue type=warning;]Test warning"
-      
-      Write-Host "##vso[task.logissue type=error;]Test error"
+    checkWarnings: true
+    warningFailOption: fixed
+    warningThreshold: 1
+    showStatistics: true
