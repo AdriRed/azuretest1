@@ -13,7 +13,7 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: dotnet add package PasionaAnalyzer --version 1.0.0
+- script: dotnet add package PasionaAnalyzer --version 1.0.0 -s https://api.nuget.org/v3/index.json
   displayName: 'dotnet add package PasionaAnalyzer'
 - script: dotnet restore
   displayName: 'dotnet restore'
